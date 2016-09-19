@@ -1,6 +1,6 @@
 # eZ Platform React.js todo example using the eZ CAPI
 
-A simple todo application built with React that uses the eZ Platform JavaScript Client API library for persisting state to the eZ Platform content repository. The point is just to demonstrate building an app with complete DOM as well as REST API abstractions.
+A simple todo application built with React.js that uses the <a href="http://ezplatform.com">eZ Platform</a> JavaScript Client API library for persisting state to the eZ Platform content repository. The point is just to demonstrate building an app with complete DOM as well as REST API abstractions.
 
 More details:
 
