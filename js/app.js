@@ -6,7 +6,7 @@ class Todos extends React.Component {
         // We've got to call the parent
         super(props);
 
-        // set 
+        // set initial state
         this.state = {todos: [] };
 
         // Crude connection to eZ
@@ -16,7 +16,7 @@ class Todos extends React.Component {
         };
 
         this.capi = new eZ.CAPI(
-            'http://headless.websc',
+            'http://react.local',
             new eZ.SessionAuthAgent(credentials)
         );
 
@@ -89,7 +89,13 @@ class Todos extends React.Component {
 
                 <TodoItems todos={this.state.todos} />
 
-                <TodoCreateForm contentService={this.contentService} onChange={this.changeHandler.bind(this)} />
+                <TodoCreateForm
+                    contentService={this.contentService}
+                    onChange={this.changeHandler.bind(this)}
+                    contentClassId={this.props.contentClassId}
+                    rootPath={this.props.rootPath}    
+                    languageId={this.props.languageId}
+                />
 
             </div>
         );
@@ -118,7 +124,6 @@ class TodoItems extends React.Component {
 
 class TodoCreateForm extends React.Component {
 
-
     constructor(props){
         super(props);
         this.state = {newTodoText: ''};
@@ -128,8 +133,15 @@ class TodoCreateForm extends React.Component {
 
         e.preventDefault();
 
-        var locationStruct = this.props.contentService.newLocationCreateStruct('/api/ezp/v2/content/locations/1/2');
-        var contentCreateStruct = this.props.contentService.newContentCreateStruct('/api/ezp/v2/content/types/14',locationStruct,'eng-GB');
+        var locationStruct = this.props.contentService.newLocationCreateStruct(
+                                    '/api/ezp/v2/content/locations' + this.props.rootPath
+                            );
+                            
+        var contentCreateStruct = this.props.contentService.newContentCreateStruct(
+                                    '/api/ezp/v2/content/types/' + this.props.contentClassId,
+                                    locationStruct,
+                                    this.props.languageId
+                            );
 
         contentCreateStruct.addField('text',this.state.newTodoText);
 
@@ -173,7 +185,7 @@ class TodoCreateForm extends React.Component {
 
 ReactDOM.render(
     <div>
-        <Todos title="Todos" />
+        <Todos title="Todos" contentClassId="21" rootPath="/1/2" languageId="eng-GB" />
     </div>,
     document.getElementById('todos')
 );
