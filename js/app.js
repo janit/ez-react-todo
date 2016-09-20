@@ -3,13 +3,10 @@ class Todos extends React.Component {
 
     constructor(props) {
 
-        // We've got to call the parent
         super(props);
 
-        // set initial state
         this.state = {todos: [] };
 
-        // Crude connection to eZ
         var credentials = {
             login: 'admin',
             password: 'publish'
@@ -160,7 +157,6 @@ class TodoCreateForm extends React.Component {
                 });
 
             }
-
 
         });
 
